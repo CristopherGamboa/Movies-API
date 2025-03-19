@@ -2,17 +2,19 @@ package com.movies.movies_api.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.movies.movies_api.interfaces.MovieRepository;
 import com.movies.movies_api.interfaces.MovieService;
 import com.movies.movies_api.models.Movie;
-import com.movies.movies_api.repositories.InMemoryMovieRepository;
 
 @Service
 public class MovieServiceImp implements MovieService {
-    private final InMemoryMovieRepository movieRepository;
+    private final MovieRepository movieRepository;
 
-    public MovieServiceImp(InMemoryMovieRepository movieRepository) {
+    @Autowired
+    public MovieServiceImp(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
