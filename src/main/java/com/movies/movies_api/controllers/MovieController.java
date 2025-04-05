@@ -1,6 +1,7 @@
 package com.movies.movies_api.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.movies.movies_api.interfaces.MovieService;
 import com.movies.movies_api.models.Movie;
+import com.movies.movies_api.services.interfaces.IMovieService;
 
 @RestController
 @RequestMapping("api/movies")
 public class MovieController {
-    private final MovieService movieService;
+    private final IMovieService movieService;
 
     @Autowired
-    public MovieController(MovieService movieService) {
+    public MovieController(IMovieService movieService) {
         this.movieService = movieService;
     }
 
@@ -31,17 +32,17 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable Long id) {
+    public Optional<Movie> getMovieById(@PathVariable Long id) {
         return movieService.findById(id);
     }
 
     @PostMapping
-    public Movie createMovie(@RequestBody Movie movie) {
+    public Optional<Movie> createMovie(@RequestBody Movie movie) {
         return movieService.save(movie);
     }
 
     @PutMapping("/{id}")
-    public Movie updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
+    public Optional<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
         return movieService.update(id, movie);
     }
 
